@@ -1,0 +1,6 @@
+npm install --save @angular-devkit/build-angular
+
+npm install --force
+
+
+https://www.thecodebuzz.com/cannot-find-module-angular-devkit-build-angular-package-json/
