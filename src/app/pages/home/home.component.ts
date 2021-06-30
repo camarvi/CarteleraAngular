@@ -19,9 +19,13 @@ export class HomeComponent implements OnInit {
     const max = (document.documentElement.scrollHeight || document.body.scrollHeight);
 
     if (pos > max){
+
+      if (this.peliculasService.cargando) {return;}
       // LLAMAR AL SERVICIO
-      this.peliculasService.getCartelera().subscribe(resp =>{
-        this.movies.push(...resp.results);
+      // si no se cumple el if anterior se ejecuta este codigo
+      this.peliculasService.getCartelera().subscribe(movies =>{
+        //this.movies.push(...resp.results);
+        this.movies.push(...movies);
       });
       console.log('Llamar al servicio');
     }
@@ -38,10 +42,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     
     this.peliculasService.getCartelera()
-    .subscribe(resp=>{
+    .subscribe(movies=>{
      // console.log(resp.results);
-      this.movies = resp.results;
-      this.moviesSlideshow = resp.results;
+      //this.movies = resp.results;
+      //this.moviesSlideshow = resp.results;
+      this.movies = movies;
+      this.moviesSlideshow = movies;
     })     
   }
 
