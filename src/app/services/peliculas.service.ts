@@ -26,6 +26,10 @@ export class PeliculasService {
     }
   }
 
+  resetCartelera(){
+    this.carteleraPage = 1;
+  }
+
   getCartelera(): Observable<Movie[]>{
 
     // return this.http.get<CarteleraResponse>(`${this.baseUrl}/movie/now_playing?api_key=8f3ad1cb69ee0dfc3bb6eb25f16208dc&language=es-ES&page=1`);
