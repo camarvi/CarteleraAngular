@@ -6,6 +6,7 @@ import { tap, map } from 'rxjs/operators'; //Sirve para lanzar un efecto secunda
 //Ejecuta el observable cada vez que este devuelve un valor
 
 import { CarteleraResponse, Movie } from '../interfaces/cartelera-response';
+import { MovieResponse } from '../interfaces/movie-response';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,17 @@ export class PeliculasService {
       map(resp => resp.results)
     )
     }
+
+
+  getPeliculaDetalle(id : string ){
+
+
+    //https://api.themoviedb.org/3/movie/588228?api_key=8f3ad1cb69ee0dfc3bb6eb25f16208dc&language=es-ES
+    return this.http.get<MovieResponse>(`${this.baseUrl}/movie/${id}`, {
+      params: this.params
+    });
+  }
+
 
   }
 
