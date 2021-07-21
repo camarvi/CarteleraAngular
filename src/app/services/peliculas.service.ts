@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { tap, map } from 'rxjs/operators'; //Sirve para lanzar un efecto secundario
+import { tap, map, catchError } from 'rxjs/operators'; //Sirve para lanzar un efecto secundario
 //Ejecuta el observable cada vez que este devuelve un valor
 
 import { CarteleraResponse, Movie } from '../interfaces/cartelera-response';
+import { CreditsResponse } from '../interfaces/credits-response';
 import { MovieResponse } from '../interfaces/movie-response';
 
 @Injectable({
@@ -70,12 +71,27 @@ export class PeliculasService {
 
   getPeliculaDetalle(id : string ){
 
-
     //https://api.themoviedb.org/3/movie/588228?api_key=8f3ad1cb69ee0dfc3bb6eb25f16208dc&language=es-ES
     return this.http.get<MovieResponse>(`${this.baseUrl}/movie/${id}`, {
       params: this.params
-    });
+    }).pipe(
+      catchError( err => of(null))
+    )
   }
+
+
+  getCast(id : string ){
+
+    //https://api.themoviedb.org/3/movie/379686/credits?api_key=8f3ad1cb69ee0dfc3bb6eb25f16208dc&language=es-ES
+    return this.http.get<CreditsResponse>(`${this.baseUrl}/movie/${id}/credits`, {
+      params: this.params
+    }).pipe(
+      map (resp => resp.cast),
+      catchError( err => of([]))   
+    );
+
+  }
+
 
 
   }
