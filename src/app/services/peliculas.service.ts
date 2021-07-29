@@ -6,7 +6,7 @@ import { tap, map, catchError } from 'rxjs/operators'; //Sirve para lanzar un ef
 //Ejecuta el observable cada vez que este devuelve un valor
 
 import { CarteleraResponse, Movie } from '../interfaces/cartelera-response';
-import { CreditsResponse } from '../interfaces/credits-response';
+import { Cast, CreditsResponse } from '../interfaces/credits-response';
 import { MovieResponse } from '../interfaces/movie-response';
 
 @Injectable({
@@ -80,7 +80,7 @@ export class PeliculasService {
   }
 
 
-  getCast(id : string ){
+  getCast(id : string ): Observable<Cast[]>{
 
     //https://api.themoviedb.org/3/movie/379686/credits?api_key=8f3ad1cb69ee0dfc3bb6eb25f16208dc&language=es-ES
     return this.http.get<CreditsResponse>(`${this.baseUrl}/movie/${id}/credits`, {
